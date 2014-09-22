@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<bp:BusinessProcess xmlns:bp="BitMobile.BusinessProcess">
+
+	<bp:Workflow Name="Main" Controller="Main\Main.js">
+		<bp:Step Name="Menu" Screen="Main.xml">
+			<bp:Action Name="News" NextWorkflow="News"></bp:Action>
+			<bp:Action Name="Tasks" NextWorkflow="Tasks"></bp:Action>
+			<bp:Action Name="Plans" NextWorkflow="Plans"></bp:Action>
+			<bp:Action Name="TasksMaterials" NextWorkflow="TasksMaterials"></bp:Action>
+			<bp:Action Name="Stocks" NextWorkflow="Stocks"></bp:Action>
+			<bp:Action Name="TasksHistory" NextWorkflow="TasksHistoryWorkflow"></bp:Action>
+			<bp:Action Name="MovingMaterials" NextWorkflow="MovingMaterials"></bp:Action>
+			<bp:Action Name="Sync" NextWorkflow="Sync" />
+
+
+			<bp:Action Name="Visits" NextWorkflow="Visits"></bp:Action>
+			<bp:Action Name="Summary" NextStep="Summary"></bp:Action>
+			<bp:Action Name="Order" NextWorkflow="Order"></bp:Action>
+			<bp:Action Name="Outlets" NextWorkflow="Outlets"></bp:Action>
+			<bp:Action Name="ToDo" NextWorkflow="ToDo"></bp:Action>
+			<bp:Action Name="Targets" NextWorkflow="Targets"></bp:Action>
+			<bp:Action Name="Settings" NextWorkflow="Settings"></bp:Action>
+		</bp:Step>
+	</bp:Workflow>
+	
+	<bp:Workflow Name="News">
+		<bp:Step Name="News" Screen="News.xml" Controller="News\main.js">
+			<bp:Action Name="SelectNews" NextStep="NewsText"></bp:Action>			
+		</bp:Step>
+		<bp:Step Name="NewsText" Screen="NewsText.xml" Controller="News\main.js">
+						
+		</bp:Step>		
+	</bp:Workflow>
+	
+	<bp:Workflow Name="Tasks">
+		<bp:Step Name="Tasks" Screen="Tasks.xml" Controller="Tasks\Main.js">
+			<bp:Action Name="SelectTask" NextWorkflow="Task"></bp:Action>
+			<bp:Action Name="ShowMap" NextStep="ShowMap"></bp:Action>
+		</bp:Step>
+		
+		<bp:Step Name="ShowMap" Screen="TripMap.xml" Controller="TripMap\main.js">
+		
+		</bp:Step>
+	</bp:Workflow>
+	
+	<bp:Workflow Name="Task">		
+		<bp:Step Name="Task" Screen="Task.xml" Controller="Tasks\Main.js">
+			<bp:Action Name="GoTaskMaterialsList" NextStep="TaskMaterialsList"></bp:Action>
+			<bp:Action Name="ShowMap" NextStep="ShowMap"></bp:Action>
+			<bp:Action Name="OpenCurObject" NextStep="OpenCurObject"></bp:Action>
+		</bp:Step>
+		
+		<bp:Step Name="OpenCurObject" Screen="ObjectT.xml" Controller="Tasks\Main.js">
+			<bp:Action Name="JobsHistoryT" NextStep="JobsHistoryT"></bp:Action>
+			<bp:Action Name="ShowMap" NextStep="ShowMap"></bp:Action>
+		</bp:Step>
+
+		<bp:Step Name="JobsHistoryT" Screen="JobsHistoryT.xml" Controller="Tasks\Main.js">
+			<bp:Action Name="OpenAVRT" NextStep="AVRT"></bp:Action>
+		</bp:Step>
+		
+		<bp:Step Name="AVRT" Screen="AVRT.xml" Controller="Tasks\Main.js">
+			
+		</bp:Step>
+		
+		<bp:Step Name="TaskMaterialsList" Screen="TaskMaterialsList.xml" Controller="Tasks\Main.js">
+			<bp:Action Name="GoTaskMaterials" NextWorkflow="TaskMaterials"></bp:Action>
+			<bp:Action Name="GoMaterials" NextStep="Materials"></bp:Action>
+		</bp:Step>
+		
+		<bp:Step Name="Materials" Screen="Materials.xml" Controller="Tasks\Main.js">
+			<bp:Action Name="AddMaterials" NextStep="AddMaterials"></bp:Action>	
+			<bp:Action Name="Jobs" NextStep="Jobs"></bp:Action>		
+		</bp:Step>
+		
+		<bp:Step Name="AddMaterials" Screen="AddMaterials.xml" Controller="Tasks\Main.js">
+			
+		</bp:Step>
+		
+		<bp:Step Name="Jobs" Screen="Jobs.xml" Controller="Tasks\Main.js">
+			<bp:Action Name="AddJobs" NextStep="AddJobs"></bp:Action>
+			<bp:Action Name="GoPhotos" NextStep="Photos"></bp:Action>
+		</bp:Step>
+		
+		<bp:Step Name="AddJobs" Screen="AddJobs.xml" Controller="Tasks\Main.js">
+			
+		</bp:Step>
+		
+		<bp:Step Name="Photos" Screen="Photos.xml" Controller="Tasks\Main.js">
+			<bp:Action Name="OpenPhoto" NextStep="Photo"></bp:Action>
+			<bp:Action Name="GoResume" NextStep="Resume"></bp:Action>
+		</bp:Step>
+		
+		<bp:Step Name="Photo" Screen="Photo.xml" Controller="Tasks\Main.js">
+			
+		</bp:Step>
+		
+		<bp:Step Name="Resume" Screen="Resume.xml" Controller="Tasks\Main.js">
+			<bp:Action Name="OpenComResume" NextStep="CommentResume"></bp:Action>
+		</bp:Step>
+		<bp:Step Name="CommentResume" Screen="CommentResume.xml" Controller="Tasks\Main.js">
+			
+		</bp:Step>		
+		<bp:Step Name="ShowMap" Screen="TripMap.xml" Controller="TripMap\main.js">
+		
+		</bp:Step>
+	</bp:Workflow>
+	
+
+	<bp:Workflow Name="Plans">
+		<bp:Step Name="Plans" Screen="Plans.xml" Controller="Plans\main.js">
+			<bp:Action Name="OpenPlan" NextStep="OpenPlan"></bp:Action>
+			<bp:Action Name="ShowMap" NextStep="ShowMap"></bp:Action>
+		</bp:Step>
+
+		<bp:Step Name="OpenPlan" Screen="Plan.xml" Controller="Plans\main.js">
+			<bp:Action Name="OpenObject" NextStep="OpenObject"></bp:Action>
+			<bp:Action Name="CommentPlan" NextStep="CommentPlan"></bp:Action>
+		</bp:Step>
+
+		<bp:Step Name="OpenObject" Screen="Object.xml" Controller="Plans\main.js">
+			<bp:Action Name="JobsHistory" NextStep="JobsHistory"></bp:Action>
+			<bp:Action Name="ShowMap" NextStep="ShowMap"></bp:Action>
+		</bp:Step>
+
+		<bp:Step Name="CommentPlan" Screen="CommentPlan.xml" Controller="Plans\main.js">
+		</bp:Step>
+
+		<bp:Step Name="JobsHistory" Screen="JobsHistory.xml" Controller="Plans\main.js">
+			<bp:Action Name="OpenAVR" NextStep="AVR"></bp:Action>
+		</bp:Step>
+		
+		<bp:Step Name="AVR" Screen="AVR.xml" Controller="Plans\main.js">
+			
+		</bp:Step>
+
+		<bp:Step Name="ShowMap" Screen="TripMap.xml" Controller="TripMap\main.js">
+		
+		</bp:Step>
+	</bp:Workflow>
+
+
+	<bp:Workflow Name="Stocks">
+		<bp:Step Name="Stocks" Screen="Stocks.xml" Controller="Stocks\main.js">
+			<bp:Action Name="GoTaskMaterials" NextWorkflow="TaskMaterials"></bp:Action>
+		</bp:Step>	
+	</bp:Workflow>
+	
+
+	<bp:Workflow Name="TasksMaterials">
+		<bp:Step Name="TasksMaterials" Screen="TasksMaterials.xml" Controller="TasksMaterials\Main.js">
+			<bp:Action Name="GoTaskMaterials" NextWorkflow="TaskMaterials"></bp:Action>
+		</bp:Step>
+	</bp:Workflow>
+	
+	
+	<bp:Workflow Name="TaskMaterials">
+		<bp:Step Name="TaskMaterials" Screen="TaskMaterials.xml" Controller="TasksMaterials\Main.js">
+			<bp:Action Name="OpenListMaterials" NextStep="ListMaterials"></bp:Action>
+			<bp:Action Name="OpenComTaskMat" NextStep="ComTaskMat"></bp:Action>
+			<bp:Action Name="OpenPhoto" NextStep="Photo"></bp:Action>
+		</bp:Step>
+		
+		<bp:Step Name="ListMaterials" Screen="ListMaterials.xml" Controller="TasksMaterials\Main.js">
+			
+		</bp:Step>
+		
+		<bp:Step Name="ComTaskMat" Screen="ComTaskMat.xml" Controller="TasksMaterials\Main.js">
+			
+		</bp:Step>	
+		
+		<bp:Step Name="Photo" Screen="PhotoMaterials.xml" Controller="TasksMaterials\Main.js">
+			
+		</bp:Step>
+	</bp:Workflow>
+
+	
+		
+	
+	<bp:Workflow Name="TasksHistoryWorkflow">
+		<bp:Step Name="TasksHistory" Screen="TasksHistory.xml" Controller="TasksHistory\Main.js">
+			<bp:Action Name="SelectTaskH" NextWorkflow="TaskH"></bp:Action>					
+		</bp:Step>
+	</bp:Workflow>
+		
+	<bp:Workflow Name="TaskH">
+		<bp:Step Name="TaskH" Screen="TaskH.xml" Controller="TasksHistory\Main.js">
+			<bp:Action Name="GoMaterialsH" NextStep="MaterialsH"></bp:Action>
+			<bp:Action Name="ShowMap" NextStep="ShowMap"></bp:Action>
+			<bp:Action Name="OpenCurObjectH" NextStep="OpenCurObjectH"></bp:Action>
+		</bp:Step>
+		
+		<bp:Step Name="OpenCurObjectH" Screen="ObjectH.xml" Controller="TasksHistory\Main.js">
+			<bp:Action Name="JobsHistoryH" NextStep="JobsHistoryH"></bp:Action>
+			<bp:Action Name="ShowMap" NextStep="ShowMap"></bp:Action>
+		</bp:Step>
+
+		<bp:Step Name="JobsHistoryH" Screen="JobsHistoryH.xml" Controller="TasksHistory\Main.js">
+			<bp:Action Name="OpenAVRH" NextStep="AVRH"></bp:Action>
+		</bp:Step>
+		
+		<bp:Step Name="AVRH" Screen="AVRH.xml" Controller="TasksHistory\Main.js">
+			
+		</bp:Step>
+		
+		<bp:Step Name="MaterialsH" Screen="MaterialsH.xml" Controller="TasksHistory\Main.js">
+			<bp:Action Name="JobsH" NextStep="JobsH"></bp:Action>		
+		</bp:Step>
+		
+		<bp:Step Name="JobsH" Screen="JobsH.xml" Controller="TasksHistory\Main.js">
+			<bp:Action Name="GoPhotosH" NextStep="PhotosH"></bp:Action>
+		</bp:Step>
+		
+		<bp:Step Name="PhotosH" Screen="PhotosH.xml" Controller="TasksHistory\Main.js">
+			<bp:Action Name="GoResumeH" NextStep="ResumeH"></bp:Action>
+		</bp:Step>
+		
+		<bp:Step Name="ResumeH" Screen="ResumeH.xml" Controller="TasksHistory\Main.js">
+			<bp:Action Name="OpenComResumeH" NextStep="CommentResumeH"></bp:Action>
+		</bp:Step>
+		<bp:Step Name="CommentResumeH" Screen="CommentResumeH.xml" Controller="TasksHistory\Main.js">
+			
+		</bp:Step>	
+		<bp:Step Name="ShowMap" Screen="TripMap.xml" Controller="TripMap\main.js">
+		
+		</bp:Step>	
+	</bp:Workflow>
+	
+
+	<bp:Workflow Name="MovingMaterials">
+		<bp:Step Name="MovingMaterials" Screen="MovingMaterials.xml" Controller="MovingMaterials\Main.js">
+			<bp:Action Name="OpenMovement" NextStep="OpenMovement"></bp:Action>
+		</bp:Step>
+		
+		<bp:Step Name="OpenMovement" Screen="Moving.xml" Controller="MovingMaterials\Main.js">
+			<bp:Action Name="GoMovingListMaterials" NextStep="MovingListMaterials"></bp:Action>
+		</bp:Step>
+		
+		<bp:Step Name="MovingListMaterials" Screen="MovingListMaterials.xml" Controller="MovingMaterials\Main.js">
+			<bp:Action Name="OpenMovement" NextStep="OpenMovement"></bp:Action>
+		</bp:Step>			
+	</bp:Workflow>
+
+
+
+
+
+
+	
+
+	<bp:Workflow Name="Settings">
+
+		<bp:Step Name="Settings" Screen="Settings.xml">
+		</bp:Step>
+
+	</bp:Workflow>
+
+
+	
+
+	<bp:Workflow Name="Sync">
+		<bp:Step Name="Sync" Screen="Sync\Sync.xml" Controller="Sync\Main.js" />
+	</bp:Workflow>
+
+</bp:BusinessProcess>
