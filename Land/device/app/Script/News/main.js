@@ -1,17 +1,23 @@
 ﻿
 function GetDocs(getCount){
+	var userId = $.common.UserId;
+	
 	if (getCount == 0) {	
 		var qry = new Query("SELECT _NEWS.Id, _NEWS.Date, _NEWS.Number, _NEWS.NewsText FROM Document_News _NEWS " +
 				"INNER JOIN  Document_News_Addressee _ADR ON _ADR.Ref = _NEWS.Id " +
-				"WHERE _ADR.Read = 0 AND _NEWS.Posted = 1 " +
+				"WHERE _ADR.User = @userId AND _ADR.Read = 0 AND _NEWS.Posted = 1 " +
 				"ORDER BY Date DESC");
+		
+		qry.AddParameter("userId", "@ref[Catalog_User]:" + userId);
 		
 		var c = qry.Execute();
 		return c; 
 	} else {
 		var qry = new Query("SELECT _NEWS.Id, _NEWS.Date, _NEWS.Number, _NEWS.NewsText FROM Document_News _NEWS " +
 				"INNER JOIN  Document_News_Addressee _ADR ON _ADR.Ref = _NEWS.Id " +
-				"WHERE _ADR.Read = 0 AND _NEWS.Posted = 1 ");
+				"WHERE _ADR.User = @userId AND _ADR.Read = 0 AND _NEWS.Posted = 1 ");
+		
+		qry.AddParameter("userId", "@ref[Catalog_User]:" + userId);
 		
 		var c = qry.ExecuteCount();	
 		return c;		
@@ -38,8 +44,11 @@ function GetNewsText(newsId){
 
 function KillNews(newsId, scr){
 	
-	var qry = new Query("SELECT Id FROM Document_News_Addressee WHERE Ref = @newsId");
+	var userId = $.common.UserId;
+	
+	var qry = new Query("SELECT Id FROM Document_News_Addressee WHERE Ref = @newsId AND User = @userId");
 	qry.AddParameter("newsId",newsId);
+	qry.AddParameter("userId", "@ref[Catalog_User]:" + userId);
 	var c = qry.ExecuteScalar();
 	
 	var obj = c.GetObject();

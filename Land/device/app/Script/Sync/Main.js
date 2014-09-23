@@ -27,25 +27,25 @@ function SyncDataFinish() {
 	//var peremOutMovingMain;	//исходящие перемещения
 	
 	$.Remove("peremNewsCount");
-	$.Add("peremNewsCount", null);
+	$.AddGlobal("peremNewsCount", null);
 	
 	$.Remove("peremDoneTask");
-	$.Add("peremDoneTask", null);
+	$.AddGlobal("peremDoneTask", null);
 	
 	$.Remove("peremNewTask");
-	$.Add("peremNewTask", null);
+	$.AddGlobal("peremNewTask", null);
 	
 	$.Remove("peremPlanTask");
-	$.Add("peremPlanTask", null);
+	$.AddGlobal("peremPlanTask", null);
 	
 	$.Remove("peremCrashTask");
-	$.Add("peremCrashTask", null);
+	$.AddGlobal("peremCrashTask", null);
 	
 	$.Remove("peremInMovingMain");
-	$.Add("peremInMovingMain", null);
+	$.AddGlobal("peremInMovingMain", null);
 	
 	$.Remove("peremOutMovingMain");
-	$.Add("peremOutMovingMain", null);
+	$.AddGlobal("peremOutMovingMain", null);
 }
 
 // -------------------- Sync Ftp ------------

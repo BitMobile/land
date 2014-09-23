@@ -94,11 +94,17 @@ function Fake() {
 //ДЛЯ ЧАСТИ ЭКРАНА МЕНЮ
 
 function NewsCount() {
+	
 	if(peremNewsCount == null){
+		var userId = $.common.UserId;
+		
 		var qry = new Query("SELECT _NEWS.Id FROM Document_News _NEWS " +
 				"INNER JOIN  Document_News_Addressee _ADR ON _ADR.Ref = _NEWS.Id " +
-				"WHERE _ADR.Read = 0 AND _NEWS.Posted = 1");
+				"WHERE _ADR.User = @userId AND _ADR.Read = 0 AND _NEWS.Posted = 1");
 //		return qry.ExecuteCount();
+		
+		qry.AddParameter("userId", "@ref[Catalog_User]:" + userId);
+		
 		peremNewsCount = qry.ExecuteCount();
 		
 		$.Remove("peremNewsCount");
