@@ -5,6 +5,7 @@
 	<s:Push Id="planPeriod" Value="$param2"></s:Push>
 	<s:Push Id="currentStatusPlanAndComment" Value="$GetStatusPlan($currentPlan)"></s:Push>
 	<s:Push Id="onR" Value="Редактируется"></s:Push>
+	<s:Push Id="commentValue" Value="$CommentValueCheck($currentStatusPlanAndComment.Comment)"></s:Push>
 										
 	<s:If Test="$currentStatusPlanAndComment.StatName == $onR">
 		<s:Push Id="StatPl" Value="1"></s:Push>	
@@ -28,7 +29,7 @@
 		<c:HorizontalLine CssClass="navy"/>
 						
 		<c:DockLayout CssClass="footer">
-			<s:If Test="$currentStatusPlanAndComment.Comment != null">
+			<s:If Test="$commentValue == 1">
 				<c:DockLayout CssClass="btn_left_footer" OnClickAction="$DoAction(CommentPlan, $currentPlan)">
 					<c:TextView Text="#commentary#" />
 				</c:DockLayout>

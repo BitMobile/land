@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<c:Screen xmlns:c="BitMobile.Controls" xmlns:s="BitMobile.ValueStack" StyleSheet="TasksMaterials.css">
-	
+<c:Screen xmlns:c="BitMobile.Controls" xmlns:s="BitMobile.ValueStack" StyleSheet="TasksMaterials.css">	
+  	
+  <c:VerticalLayout>
 	<s:Push Id="search" Value="$param1"/>
   	<s:Push Id="s" Value="$SetListType()"></s:Push>
   	
-  <c:VerticalLayout>
-
     <c:DockLayout CssClass="top_navigator">
       <c:HorizontalLayout CssClass="btn_menu" OnEvent="Back" OnClickAction="$Workflow.DoRollback()">
         <c:Image CssClass="menuIcon"/>
@@ -105,6 +104,7 @@
 
 		</c:ScrollView>
 	</s:If>
+	<s:Else>
 		<s:Push Id="tasksType" Value="ShippedTask"></s:Push>
 		
 		<c:HorizontalLayout CssClass="shadowLine"></c:HorizontalLayout>
@@ -150,9 +150,7 @@
 			<c:HorizontalLayout CssClass="end_of_block" />
 
 		</c:ScrollView>
-	<s:Else>
-		
-		
+			
 	</s:Else>
 	
   </c:VerticalLayout>

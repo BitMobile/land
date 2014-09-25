@@ -151,7 +151,7 @@ function NewTask() {
 				"LEFT JOIN Catalog_Object OBJ ON TSK.Object = OBJ.ID " +
 				"LEFT JOIN Enum_StatusTasks STAT ON TSK.StatusTasks = STAT.Id " +
 				"LEFT JOIN Enum_ViewTasks VIEW ON TSK.ViewTasks = VIEW.Id " +
-			"WHERE _US.Id = @userId AND TSK.StatusTasks=@StatusTasksNew AND TSK.Date >= @DateStart AND TSK.Date < @DateEnd");
+			"WHERE _US.Id = @userId AND TSK.DeletionMark = 0 AND TSK.StatusTasks=@StatusTasksNew AND TSK.Date >= @DateStart AND TSK.Date < @DateEnd");
 		
 		qry.AddParameter("StatusTasksNew", "@ref[Enum_StatusTasks]:b92d0bb1-9062-74ef-428d-7384740ad3c2");//новые
 		qry.AddParameter("DateStart", DateTime.Now.Date);
@@ -167,6 +167,10 @@ function NewTask() {
 	return peremNewTask;
 }
 
+function jopa(){
+	
+}
+
 function PlanTask() {
 	if(peremPlanTask == null){
 		var userId = $.common.UserId;
@@ -177,7 +181,7 @@ function PlanTask() {
 				"LEFT JOIN Catalog_Object OBJ ON TSK.Object = OBJ.ID " +
 				"LEFT JOIN Enum_StatusTasks STAT ON TSK.StatusTasks = STAT.Id " +
 				"LEFT JOIN Enum_ViewTasks VIEW ON TSK.ViewTasks = VIEW.Id " +
-			"WHERE _US.Id = @userId AND TSK.ViewTasks=@ViewTasksPlan AND DateTime(TSK.Date) >= DateTime('now','start of day') AND DateTime(TSK.Date) < DateTime('now','start of day','+1 day')");
+			"WHERE _US.Id = @userId AND TSK.DeletionMark = 0 AND TSK.ViewTasks=@ViewTasksPlan AND DateTime(TSK.Date) >= DateTime('now','start of day') AND DateTime(TSK.Date) < DateTime('now','start of day','+1 day')");
 		
 		qry.AddParameter("ViewTasksPlan", "@ref[Enum_ViewTasks]:a4424c1a-5cba-9df8-4b81-5f23f7d849db");
 		qry.AddParameter("DateStart", DateTime.Now.Date);

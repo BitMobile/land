@@ -177,6 +177,14 @@ function AssignNumberIfNotExist(plan)
 	return "number";
 }
 
+function CommentValueCheck(comment){
+	if(IsBlankString(comment) == false){
+		return 1;
+	}else{
+		return 0;
+	}
+}
+
 
 
 //СКРИН "КОММЕНТАРИЙ К ПЛАНУ"

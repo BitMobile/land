@@ -16,6 +16,14 @@
     margin-left: 2%;
 }
 
+	.btn_menu menuIcon {
+        background-image: url(button_menu.png);
+        height: 37%;
+        margin-top: 30%;
+        margin-left: 5%;
+        margin-bottom: 20%;
+    }
+
 vl ScrollTasks {
     width: 100%;
     height: 84sp;
