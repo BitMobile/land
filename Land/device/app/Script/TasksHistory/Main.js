@@ -112,11 +112,11 @@ function GetParam3(param3){
 	}
 }
 
-function SetBeginDate(idDate, search, endDateParam) {
+function SetBeginDate(idDate, search, beginDateParam, endDateParam) {
 	//Dialog.Debug(idDate);
 		
 	var header = Translate["#enterDateTime#"];
-    Dialog.ShowDateTime(header, SetBeginDateNow, [idDate, search, endDateParam]);
+    Dialog.ShowDateTime(header, beginDateParam, SetBeginDateNow, [idDate, search, endDateParam]);
 }
 
 
@@ -133,11 +133,11 @@ function SetBeginDateNow(key, arr) {
 //	Dialog.Debug(vizitId);	
 }
 
-function SetEndDate(idDate, search, beginDateParam) {
+function SetEndDate(idDate, search, beginDateParam, endDateParam) {
 	//Dialog.Debug(idDate);
 		
 	var header = Translate["#enterDateTime#"];
-    Dialog.ShowDateTime(header, SetEndDateNow, [idDate, search, beginDateParam]);
+    Dialog.ShowDateTime(header, endDateParam, SetEndDateNow, [idDate, search, beginDateParam]);
 }
 
 

@@ -18,7 +18,7 @@
 		</c:DockLayout>
 		<c:HorizontalLine CssClass="navy"/>
 			
-		<c:HorizontalLayout CssClass="gridDate" OnClickAction="$SetBeginDate($beginDate, $search, $endDateParam)">
+		<c:HorizontalLayout CssClass="gridDate" OnClickAction="$SetBeginDate($beginDate, $search, $beginDateParam, $endDateParam)">
 	        <c:VerticalLayout>
 	        	<c:DockLayout>
 	          		<c:TextView Id="beginDate" Text="$GetDate_ddMMyyyy($beginDateParam)" CssClass="main_row"></c:TextView>
@@ -28,7 +28,7 @@
 	     
 	     <c:HorizontalLine/>
 		 
-		 <c:HorizontalLayout CssClass="gridDate" OnClickAction="$SetEndDate($endDate, $search, $beginDateParam)">
+		 <c:HorizontalLayout CssClass="gridDate" OnClickAction="$SetEndDate($endDate, $search, $beginDateParam, $endDateParam)">
 	     	<c:VerticalLayout>
 	     		<c:DockLayout>
 	          		<c:TextView Id="endDate" Text="$GetDate_ddMMyyyy($endDateParam)" CssClass="main_row"></c:TextView>

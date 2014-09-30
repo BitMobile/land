@@ -71,7 +71,7 @@
 																								
 					<c:SwipeHorizontalLayout Id="swipe_layout" CssClass="swipe_layout" Index="0">
 						<c:HorizontalLayout Id="openobject" CssClass="grid">
-							<c:VerticalLayout CssClass="date_object" OnClickAction="$SetDateObjectList($row.LineId,datePlan{$index}, $StatPl, $planPeriod)">
+							<c:VerticalLayout CssClass="date_object" OnClickAction="$SetDateObjectList($row.LineId,datePlan{$index}, $StatPl, $planPeriod, $row.DatePlan)">
 								<s:if Test="$row.DatePlan == NULL">
 									<c:TextView Id="datePlan{$index}" Text="Введите дату" CssClass="placeholder_row"></c:TextView>
 								</s:if>

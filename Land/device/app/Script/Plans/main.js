@@ -117,13 +117,18 @@ function GetDate_ddMMyy(Period)
 	return s;
 }
 
-function SetDateObjectList(vizitId,datePlan,StatPl,planPeriod) {
+function SetDateObjectList(vizitId,datePlan,StatPl,planPeriod,rowDatePlan) {
 	if(StatPl == 0){
 		return;
 	}
 	
 	var header = Translate["#enterDateTime#"];
-    Dialog.ShowDateTime(header, SetDatePlanNow, [vizitId, datePlan, planPeriod]);
+	
+	if(rowDatePlan == null){
+		Dialog.ShowDateTime(header, SetDatePlanNow, [vizitId, datePlan, planPeriod]);
+	}else{
+		Dialog.ShowDateTime(header, rowDatePlan, SetDatePlanNow, [vizitId, datePlan, planPeriod]);
+	}
 }
 
 function SetDatePlanNow(key, arr) {
