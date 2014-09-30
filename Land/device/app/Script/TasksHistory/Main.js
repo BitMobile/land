@@ -19,9 +19,12 @@ function GetAllActiveTaskDetails(searchText, getCount, beginDate, endDate){
 	var textOrd = " ORDER BY tskDate";
 	
 	if (searchText != "" && searchText != null) {
-		var plus = " AND Contains(objDes, @st) ";
+		var plus = " AND (Contains(objDes, @st) OR Contains(strftime('%d.%m.%Y', TSK.Date), @st)) ";
+		//var plus = " AND Contains(objDes, @st) ";
 		qtext = qtext + plus;
 		q.AddParameter("st", searchText);
+		//var repl = StrReplace(searchText, ".", "-");
+		//q.AddParameter("strepl", searchText);
 	}
 		
 	q.AddParameter("StatusTasksNew", "@ref[Enum_ StatusTasks]:983204d6-92aa-e0fd-4315-258242877c2f");

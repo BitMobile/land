@@ -131,7 +131,8 @@ function LocationDialogHandler(answ, TskMatId){
 
 function GetsKUs(curTskId, getCount){
 	if (getCount == 0) {
-		var qry = new Query("SELECT GDS.Id AS Id, GDS.Count AS Cnt, SS.Count AS SSCnt, SKU.Id AS SKUId, SKU.Description AS Description, UN.Description AS Un FROM Document_InternalOrder_Goods GDS LEFT JOIN Catalog_SKU SKU ON GDS.SKU = SKU.Id LEFT JOIN Document_InternalOrder_StateShipment SS ON GDS.SKU = SS.SKU AND GDS.Ref = SS.Ref LEFT JOIN Catalog_UnitCat UN ON GDS.UnitCat = UN.Id WHERE GDS.Ref = @curTask");
+		var qry = new Query("SELECT GDS.Id AS Id, GDS.Count AS Cnt, SS.Count AS SSCnt, SKU.Id AS SKUId, SKU.Description AS Description, UN.Description AS Un " +
+				"FROM Document_InternalOrder_Goods GDS LEFT JOIN Catalog_SKU SKU ON GDS.SKU = SKU.Id LEFT JOIN Document_InternalOrder_StateShipment SS ON GDS.SKU = SS.SKU AND GDS.Ref = SS.Ref LEFT JOIN Catalog_UnitCat UN ON GDS.UnitCat = UN.Id WHERE GDS.Ref = @curTask");
 		qry.AddParameter("curTask", curTskId);
 		var c = qry.Execute();
 		return c; 
