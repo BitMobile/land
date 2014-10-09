@@ -212,7 +212,12 @@
 		</bp:Step>
 		
 		<bp:Step Name="PhotosH" Screen="PhotosH.xml" Controller="TasksHistory\Main.js">
+			<bp:Action Name="OpenPhotoH" NextStep="PhotoH"></bp:Action>
 			<bp:Action Name="GoResumeH" NextStep="ResumeH"></bp:Action>
+		</bp:Step>
+		
+		<bp:Step Name="PhotoH" Screen="PhotoH.xml" Controller="TasksHistory\Main.js">
+			
 		</bp:Step>
 		
 		<bp:Step Name="ResumeH" Screen="ResumeH.xml" Controller="TasksHistory\Main.js">

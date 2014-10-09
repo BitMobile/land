@@ -1,4 +1,4 @@
-// СПИСОК ЗАЯВОК НА МАТЕРИАЛЫ
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 function GetExpectedTask(searchText, getCount)
 {
@@ -64,7 +64,7 @@ function DeleteGlobalPerem() {
 
 
 
-//ЗАЯВКА НА МАТЕРИАЛЫ
+//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 function GetCurrentTask(parampampam){
 //	var qry = new Query("SELECT IO.Id AS Id, IO.Date AS Date FROM Document_InternalOrder IO LEFT JOIN Document_InternalOrder_StateShipment SS ON IO.Id = SS.Ref WHERE IO.Id = @curTask");
@@ -104,8 +104,8 @@ function LocationDialogHandler(answ, TskMatId){
 				"WHERE (IfNull(_LIM.Count, 0) - (IFNULL(S.Count, 0) - (IFNULL(GCount, 0) + IFNULL(MATCount, 0)))) > 0");
 		
 		
-		qry.AddParameter("sName", "Новая");
-		qry.AddParameter("ssName", "Отправлена");
+		qry.AddParameter("sName", "пїЅпїЅпїЅпїЅпїЅ");
+		qry.AddParameter("ssName", "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 		
 		var upTo = qry.Execute();
 		//LEFT JOIN Catalog_Unit UN ON SKU.Unit = UN.Id WHERE SKU.Description LIKE @st ORDER BY SKU.Description
@@ -174,10 +174,10 @@ function GetPhoto(curTskId, getCount){
 }
 
 function KillSKU(sender, curTskId, goodsId, sKUId, sKUCnt){
-	// удаляем строку материалов из Заявки на материалы
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	DB.Delete(goodsId);
 	
-	// удаляем данные из регистра накопления внутренних заказов
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	var qry = new Query("SELECT SS.Id FROM Document_InternalOrder_StateShipment SS WHERE SS.Ref = @curTask AND SS.SKU = @sKUId");
 	qry.AddParameter("curTask", curTskId);
 	qry.AddParameter("sKUId", sKUId);
@@ -213,7 +213,8 @@ function SaveAtVisit(question) {
 }
 
 function GetSKUShapshot(curTsk){
-	GetCameraObject(curTsk.Id);
+	//Dialog.Debug(curTsk);
+	GetCameraObject(curTsk);
 	Camera.MakeSnapshot(SaveAtAVR, [curTsk]);
 	
 }
@@ -222,7 +223,7 @@ function GetCameraObject(curTskId) {
 	FileSystem.CreateDirectory("/private/Document.InternalOrder");
 	var guid = GenerateGuid();
 	Variables.Add("guid", guid);
-	var path = String.Format("/private/Document.InternalOrder/{0}/{1}.jpg", curTskId, guid);
+	var path = String.Format("/private/Document.InternalOrder/{0}/{1}.jpg", curTskId.Id, guid);
 	Camera.Size = 800;
 	Camera.Path = path;
 }
@@ -273,7 +274,7 @@ function KillPhoto(photoId){
 
 
 
-//ЛИСТ МАТЕРИАЛОВ
+//пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 function GetsKUsAll(curTskId, searchText){
 	if (searchText != "" && searchText != null) {
@@ -300,8 +301,8 @@ function GetsKUsAll(curTskId, searchText){
 		qry.AddParameter("curTask", curTskId);
 		qry.AddParameter("st", searchText);
 		qry.AddParameter("service", "0");
-		qry.AddParameter("sName", "Новая");
-		qry.AddParameter("ssName", "Отправлена");
+		qry.AddParameter("sName", "пїЅпїЅпїЅпїЅпїЅ");
+		qry.AddParameter("ssName", "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 		var c = qry.Execute().Unload();		
 		return c; 
 	
@@ -327,8 +328,8 @@ function GetsKUsAll(curTskId, searchText){
 				"WHERE SKU.Service = @service ");
 		qry.AddParameter("curTask", curTskId);
 		qry.AddParameter("service", "0");
-		qry.AddParameter("sName", "Новая");
-		qry.AddParameter("ssName", "Отправлена");
+		qry.AddParameter("sName", "пїЅпїЅпїЅпїЅпїЅ");
+		qry.AddParameter("ssName", "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 		var c = qry.Execute().Unload();
 		//$.Add("sKUCount", c.Count());
 		return c;		
@@ -349,7 +350,7 @@ function checkSKUCount(sKUCount){
 
 function AddSKU(sender,sKUId,Unit,addCountText,curTskId, edtSearch) {
 	
-	//записываем данные в таблицу материалов заявки материалов
+	//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	var qry = new Query("SELECT GDS.Id FROM Document_InternalOrder_Goods GDS WHERE GDS.Ref = @curTask AND GDS.SKU = @sKUId");
 	qry.AddParameter("curTask", curTskId);
 	qry.AddParameter("sKUId", sKUId);
@@ -400,7 +401,7 @@ function AddSKU(sender,sKUId,Unit,addCountText,curTskId, edtSearch) {
 		}
 	}
 	
-	// записываем данные в регистр накопления внутренних заказов
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	var qry = new Query("SELECT SS.Id FROM Document_InternalOrder_StateShipment SS WHERE SS.Ref = @curTask AND SS.SKU = @sKUId");
 	qry.AddParameter("curTask", curTskId);
 	qry.AddParameter("sKUId", sKUId);
@@ -450,7 +451,7 @@ function SetDatePlanNow(key, arr) {
 
 
 
-//КОММЕНТАРИЙ МАТЕРИАЛОВ
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 function GetComment(curTskId){
 	var qry = new Query("SELECT CM.Id, CM.Comment FROM Document_InternalOrder_Comment CM WHERE Ref = @curTask");
@@ -492,23 +493,23 @@ function RewiewComment(comment){
 }
 
 
-//ОБЩАЯ ФОРМАТ ДАТА ВРЕМЯ
+//пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 function ConvertDate(tskDate){
 	if(tskDate != null && tskDate != 0){
 		var t = String.Format("{0:dd/MM/yy HH:mm}", DateTime.Parse(tskDate));
 //		var st = tskDate - DateTime.Now.Date;
-//		var tSt = String(t)+". Осталось "+st+" ч."
+//		var tSt = String(t)+". пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "+st+" пїЅ."
 //		return tSt;
 		return t;
 	}else{
-		var t = "Время не указано";
+		var t = "пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
 		return t;
 	}
 }
 
 
 
-//ОБЩАЯ ФУНЦИЯ ФОРМАТ ДАТЫ
+//пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
 function GetDate_ddMMyy(Period)
 {
@@ -516,7 +517,7 @@ function GetDate_ddMMyy(Period)
 	return s;
 }
 
-//ОБЩАЯ ФУНЦИЯ РАЗНОСТИ
+//пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 function Minus(First,Second){
 	var m = First - Second;
@@ -524,7 +525,7 @@ function Minus(First,Second){
 }
 
 
-//ОБЩАЯ ФУНЦИЯ ДЛЯ ТЕСТОВ
+//пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
 function Test(p){
 	Dialog.Debug(p);

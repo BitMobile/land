@@ -282,6 +282,7 @@ function GetJobs(currentObject, getCount){
 //СКРИН ФОТО
 
 function GetPhoto(currentObject, getCount){
+	
 	if (getCount == 0) {	
 		var qry = new Query("SELECT Id, Info, Date, Path FROM Document_bitmobile_AVR_Photo WHERE Ref = @currentObject");		
 		qry.AddParameter("currentObject", currentObject);

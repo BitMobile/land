@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <c:Screen xmlns:c="BitMobile.Controls" xmlns:s="BitMobile.ValueStack" StyleSheet="Materials.css">
 	
-	<s:Push Id="curTsk" Value="$param1"></s:Push>
+	<s:Push Id="curTsk" Value="@tasksIdperem"></s:Push>
 	<s:Push Id="taskStatus_AVRId" Value="$GetTaskStatusAVRId($param1)"></s:Push>
 				
 	<c:DockLayout>	

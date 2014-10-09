@@ -23,7 +23,7 @@
 		        <c:TextView Text="#photo#:"></c:TextView>
 		    </c:HorizontalLayout>
 		    
-		    <s:Push Id="photoCount" Value="$GetPhoto($curTsk.Id, 1)"></s:Push>
+		    <s:Push Id="photoCount" Value="$GetPhoto($taskStatus_AVRId.AVRId, 1)"></s:Push>
 		    								
 			<s:If Test="$photoCount == 0">
 			
@@ -33,21 +33,22 @@
 			</s:If>
 			<s:Else>
 			
-				<s:Push Id="photoes" Value="$GetPhoto($curTsk.Id, 0)"></s:Push>
+				<s:Push Id="photoes" Value="$GetPhoto($taskStatus_AVRId.AVRId, 0)"></s:Push>
 														
 				<s:Iterator Id="photo" Value="$photoes">
 					<c:HorizontalLine />
 						
 					<c:SwipeHorizontalLayout Id="swipe_layout4" CssClass="swipe_layout" Index="0">
 												
-						<c:HorizontalLayout CssClass="grid">
-							<c:VerticalLayout CssClass="no_mark"></c:VerticalLayout>
+						<c:HorizontalLayout CssClass="grid" OnClickAction="$Workflow.DoAction(OpenPhotoH, $photo.Id, $photo.Path)">
+							<c:VerticalLayout CssClass="photo_mark"></c:VerticalLayout>
 							<c:VerticalLayout>
-								<c:TextView Text="$photo.Description" CssClass="main_row"></c:TextView>															
+								<c:TextView Text="$ConvertDate($photo.Date)" CssClass="description_row"/>
+								<c:TextView Text="$photo.Info" CssClass="main_row"></c:TextView>															
 							</c:VerticalLayout>
 							<c:Image />
-						</c:HorizontalLayout>
-												
+						</c:HorizontalLayout>						
+						
 					</c:SwipeHorizontalLayout>
 
 				</s:Iterator>

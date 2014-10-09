@@ -82,7 +82,11 @@ function EditStatusPlan(currentPlan,statusPlan) {
 
 function GetObjectList(currentPlan)
 {
-	var qry = new Query("SELECT O.Description AS Object, O.Id AS ObjectId, DIS.Description AS IntervalService, OL.Id AS LineId, OL.DatePlan AS DatePlan, OL.DateLastService AS LastService FROM Document_Plan_ObjectList OL LEFT JOIN Catalog_Object O ON OL.Object = O.Id LEFT JOIN Catalog_IntervalService DIS ON OL.IntervalService = DIS.Id  WHERE OL.Ref == @P");
+	var qry = new Query("SELECT O.Description AS Object, O.Id AS ObjectId, DIS.Description AS IntervalService, " +
+			"OL.Id AS LineId, OL.DatePlan AS DatePlan, OL.DateLastService AS LastService " +
+			"FROM Document_Plan_ObjectList OL LEFT JOIN Catalog_Object O ON OL.Object = O.Id " +
+			"	LEFT JOIN Catalog_IntervalService DIS ON OL.IntervalService = DIS.Id  " +
+			"WHERE OL.Ref == @P");
 	qry.AddParameter("P",currentPlan);
 	return qry.Execute();
 }
