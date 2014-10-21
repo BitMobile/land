@@ -770,20 +770,23 @@ function GenerateGuid() {
 	return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
 }
 
-function SaveAtAVR(arr) {
-	var curTsk = arr[0];
-	var aVRId = arr[1];
-	tskObj = DB.Create("Document.bitmobile_AVR_Photo");
-	//Dialog.Debug(aVRId);
-	tskObj.Ref = aVRId;
-	var guid = Variables["guid"];
-	//Dialog.Debug(guid);
-	tskObj.Guid = guid;
-	tskObj.Path = String.Format("/private/Document.bitmobile_AVR/{0}/{1}.jpg", aVRId.Id, guid);
-	tskObj.Date = DateTime.Now; 
-	tskObj.Save(false);
-	//control.Text = Translate["#snapshotAttached#"];
-	Workflow.Refresh([curTsk]);
+function SaveAtAVR(arr, args) {
+	//Dialog.Debug(args.Result);
+	if (args.Result == true) {
+		var curTsk = arr[0];
+		var aVRId = arr[1];
+		tskObj = DB.Create("Document.bitmobile_AVR_Photo");
+		//Dialog.Debug(aVRId);
+		tskObj.Ref = aVRId;
+		var guid = Variables["guid"];
+		//Dialog.Debug(guid);
+		tskObj.Guid = guid;
+		tskObj.Path = String.Format("/private/Document.bitmobile_AVR/{0}/{1}.jpg", aVRId.Id, guid);
+		tskObj.Date = DateTime.Now; 
+		tskObj.Save(false);
+		//control.Text = Translate["#snapshotAttached#"];
+		Workflow.Refresh([curTsk]);
+	}
 }
 
 
@@ -837,9 +840,9 @@ function GetStatusTask(curTsk){
 }
 
 function GetTaskResume(curTskId){
-	var qry = new Query("SELECT TSK.Id, TSK.TimeStart, TSK.TimeFinish, TSK.TimeSpent, TSK.TimeReactionNorm, TSKC.Id AS TSKCId, TSKC.Comment, AVR.ValueBrigade AS ValueBrigade " +
+	var qry = new Query("SELECT TSK.Id, TSK.TimeStart, TSK.TimeFinish, TSK.TimeSpent, TSK.TimeReactionNorm, TSK.Comment, AVR.ValueBrigade AS ValueBrigade " +
 			"FROM Document_Task TSK " +
-			"LEFT JOIN Document_Task_Comment TSKC ON TSKC.Ref = TSK.Id " +
+			//"LEFT JOIN Document_Task_Comment TSKC ON TSKC.Ref = TSK.Id " +
 			"LEFT JOIN Document_bitmobile_AVR AVR ON AVR.Task = TSK.Id " +
 			"WHERE TSK.Id = @curTskId");
 	qry.AddParameter("curTskId", curTskId);
@@ -998,16 +1001,19 @@ function RewiewComment(comment){
 //СКРИН КОММЕНТАРИЙ ИТОГОВ ЗАЯВКИ НА СО
 
 function GetComment(curTskId){
-	var qry = new Query("SELECT CM.Id, CM.Comment FROM Document_Task_Comment CM WHERE Ref = @curTask");
+	var qry = new Query("SELECT CM.Id, CM.Comment FROM Document_Task CM WHERE CM.Id = @curTask");
 	qry.AddParameter("curTask", curTskId);
 	var c = qry.Execute();
 	return c; 
 }
 
-function GreateComment(comment, ref) {
+function GreateComment(comment, curTaskId) {
 
-	var doc = DB.Create("Document.Task_Comment");
-	doc.Ref = ref;
+//	var doc = DB.Create("Document.Task_Comment");
+//	doc.Ref = ref;
+//	doc.Comment = comment;
+	
+	var doc = curTaskId.GetObject();
 	doc.Comment = comment;
 		
 	doc.Save(false);
@@ -1015,10 +1021,10 @@ function GreateComment(comment, ref) {
 	Workflow.Back();
 }
 
-function EditComment(comment, commentId) {
-	var doc = commentId.GetObject();
-	doc.Comment = comment;
-		
+function EditComment(comment, curTaskId) {
+	var doc = curTaskId.GetObject();
+	doc.Comment = comment;	
+			
 	doc.Save(false);
 
 	Workflow.Back();

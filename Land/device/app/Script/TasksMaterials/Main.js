@@ -232,19 +232,21 @@ function GenerateGuid() {
 	return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
 }
 
-function SaveAtAVR(arr) {
-	var curTsk = arr[0];
-	tskObj = DB.Create("Document.InternalOrder_Photo");
-	//Dialog.Debug(aVRId);
-	tskObj.Ref = curTsk;
-	var guid = Variables["guid"];
-	//Dialog.Debug(guid);
-	tskObj.Guid = guid;
-	tskObj.Path = String.Format("/private/Document.InternalOrder/{0}/{1}.jpg", curTsk.Id, guid);
-	tskObj.Date = DateTime.Now; 
-	tskObj.Save(false);
-	//control.Text = Translate["#snapshotAttached#"];
-	Workflow.Refresh([]);
+function SaveAtAVR(arr, args) {
+	if (args.Result == true) {
+		var curTsk = arr[0];
+		tskObj = DB.Create("Document.InternalOrder_Photo");
+		//Dialog.Debug(aVRId);
+		tskObj.Ref = curTsk;
+		var guid = Variables["guid"];
+		//Dialog.Debug(guid);
+		tskObj.Guid = guid;
+		tskObj.Path = String.Format("/private/Document.InternalOrder/{0}/{1}.jpg", curTsk.Id, guid);
+		tskObj.Date = DateTime.Now; 
+		tskObj.Save(false);
+		//control.Text = Translate["#snapshotAttached#"];
+		Workflow.Refresh([]);
+	}
 }
 
 function GetTskPhoto(currentObject, getCount){

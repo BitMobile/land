@@ -153,7 +153,7 @@
 			<c:HorizontalLine/>
 			
 			<s:If Test="$taskStatus_AVRId.StatName == 'ВРаботе'">
-				<c:HorizontalLayout CssClass="grid" OnClickAction="$DoAction(OpenComResume, $curTsk.Id, 0)">
+				<c:HorizontalLayout CssClass="grid" OnClickAction="$DoAction(OpenComResume, $curTsk.Id, 0, $curTsk.Comment)">
 			    	<c:VerticalLayout CssClass="no_mark"></c:VerticalLayout>
 					<c:VerticalLayout>
 						<s:Push Id="rewiewCom" Value="$RewiewComment($curTsk.Comment)"></s:Push>
@@ -168,7 +168,7 @@
 				</c:HorizontalLayout>
 			</s:If>
 			<s:Else>
-				<c:HorizontalLayout CssClass="grid" OnClickAction="$DoAction(OpenComResume, $curTsk.Id, 1)">
+				<c:HorizontalLayout CssClass="grid" OnClickAction="$DoAction(OpenComResume, $curTsk.Id, 1, $curTsk.Comment)">
 			    	<c:VerticalLayout CssClass="no_mark"></c:VerticalLayout>
 					<c:VerticalLayout>
 						<s:Push Id="rewiewCom" Value="$RewiewComment($curTsk.Comment)"></s:Push>

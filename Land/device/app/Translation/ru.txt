@@ -238,7 +238,7 @@ reads	Прочитано
 replenishStock	Пополнить
 refillTheListOfMaterials	Перезаполнить список материалов?
 incoming	Входящие
-outgoing	Исходяшие
+outgoing	Исходящие
 accept	Принять
 refuse	Отказаться
 at	в
