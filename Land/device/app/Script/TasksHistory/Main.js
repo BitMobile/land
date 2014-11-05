@@ -193,7 +193,7 @@ function GetWayPoints(currentObject){
 	   if (result.Latitude == null || result.Longitude == null){
 		   return null;
 	   }else{	
-		   if (parseFloat(result.Latitude) == 0 && parseFloat(result.Longitude) == 0){
+		   if (Converter.ToDecimal(result.Latitude) == 0 && Converter.ToDecimal(result.Longitude) == 0){
 			   return null;
 		   }else{
 			   return result;
