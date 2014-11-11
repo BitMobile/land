@@ -68,7 +68,9 @@ function DeleteGlobalPerem() {
 
 function GetCurrentTask(parampampam){
 //	var qry = new Query("SELECT IO.Id AS Id, IO.Date AS Date FROM Document_InternalOrder IO LEFT JOIN Document_InternalOrder_StateShipment SS ON IO.Id = SS.Ref WHERE IO.Id = @curTask");
-	var qry = new Query("SELECT IO.Id AS Id, IO.Date AS Date, IO.Posted AS Posted, TSKSO.Number AS TaskSONum FROM Document_InternalOrder IO LEFT JOIN Document_Task TSKSO ON TSKSO.Id = IO.Task WHERE IO.Id = @curTask");
+	var qry = new Query("SELECT IO.Id AS Id, IO.Date AS Date, IO.Posted AS Posted, TSKSO.Number AS TaskSONum " +
+			"FROM Document_InternalOrder IO " +
+			"LEFT JOIN Document_Task TSKSO ON TSKSO.Id = IO.Task WHERE IO.Id = @curTask");
 	qry.AddParameter("curTask", parampampam);
 	var c = qry.Execute();
 	return c;	
@@ -145,18 +147,25 @@ function GetsKUs(curTskId, getCount){
 }
 
 
-function GetComm(curTskId, getCount){
-	if (getCount == 0) {
-		var qry = new Query("SELECT Id, Comment FROM Document_InternalOrder_Comment WHERE Ref = @curTask");
-		qry.AddParameter("curTask", curTskId);
-		var c = qry.Execute();
-		return c; 
-	} else {
-		var qry = new Query("SELECT Id FROM Document_InternalOrder_Comment WHERE Ref = @curTask");
-		qry.AddParameter("curTask", curTskId);
-		var c = qry.ExecuteCount();	
-		return c;		
-	}
+//function GetComm(curTskId, getCount){
+//	if (getCount == 0) {
+//		var qry = new Query("SELECT Id, Comment FROM Document_InternalOrder_Comment WHERE Ref = @curTask");
+//		qry.AddParameter("curTask", curTskId);
+//		var c = qry.Execute();
+//		return c; 
+//	} else {
+//		var qry = new Query("SELECT Id FROM Document_InternalOrder_Comment WHERE Ref = @curTask");
+//		qry.AddParameter("curTask", curTskId);
+//		var c = qry.ExecuteCount();	
+//		return c;		
+//	}
+//}
+
+function GetCommNew(curTskId){
+	var qry = new Query("SELECT Comment FROM Document_InternalOrder WHERE Id = @curTask");
+	qry.AddParameter("curTask", curTskId);
+	var c = qry.Execute();
+	return c;
 }
 
 function GetPhoto(curTskId, getCount){
@@ -455,33 +464,49 @@ function SetDatePlanNow(key, arr) {
 
 //����������� ����������
 
-function GetComment(curTskId){
-	var qry = new Query("SELECT CM.Id, CM.Comment FROM Document_InternalOrder_Comment CM WHERE Ref = @curTask");
+//function GetComment(curTskId){
+//	var qry = new Query("SELECT CM.Id, CM.Comment FROM Document_InternalOrder_Comment CM WHERE Ref = @curTask");
+//	qry.AddParameter("curTask", curTskId);
+//	var c = qry.Execute();
+//	return c; 
+//}
+
+function GetCommentNew(curTskId){
+	var qry = new Query("SELECT Id, Comment FROM Document_InternalOrder WHERE Id = @curTask");
 	qry.AddParameter("curTask", curTskId);
 	var c = qry.Execute();
 	return c; 
 }
 
-function GreateComment(comment, ref) {
+//function GreateComment(comment, ref) {
+//
+//	var doc = DB.Create("Document.InternalOrder_Comment");
+//	doc.Ref = ref;
+//	doc.Comment = comment;
+//		
+//	doc.Save();
+//
+//	Workflow.Back();
+//
+//}
+//
+//function EditComment(comment, commentId) {
+//	var doc = commentId.GetObject();
+//	doc.Comment = comment;
+//		
+//	doc.Save();
+//
+//	Workflow.Back();
+//
+//}
 
-	var doc = DB.Create("Document.InternalOrder_Comment");
-	doc.Ref = ref;
-	doc.Comment = comment;
-		
-	doc.Save();
+function SaveComment(comment, curTaskId) {
+	var doc = curTaskId.GetObject();
+	doc.Comment = comment;	
+			
+	doc.Save(false);
 
 	Workflow.Back();
-
-}
-
-function EditComment(comment, commentId) {
-	var doc = commentId.GetObject();
-	doc.Comment = comment;
-		
-	doc.Save();
-
-	Workflow.Back();
-
 }
 
 function RewiewComment(comment){

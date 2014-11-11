@@ -193,7 +193,7 @@
 			        <c:TextView Text="#descriptions#:"></c:TextView>
 			    </c:HorizontalLayout>
 			    
-			    <s:Push Id="dessCount" Value="$GetComm($curTsk.Id, 1)"></s:Push>
+			    <!-- <s:Push Id="dessCount" Value="$GetComm($curTsk.Id, 1)"></s:Push>   
 			    								
 				<s:If Test="$dessCount == 0">
 				
@@ -201,9 +201,11 @@
 					<c:TextView Text="#unknown#" CssClass="TextNoData" />
 	
 				</s:If>
-				<s:Else>
+				<s:Else> 
 				
-					<s:Push Id="dess" Value="$GetComm($curTsk.Id, 0)"></s:Push>
+					<s:Push Id="dess" Value="$GetComm($curTsk.Id, 0)"></s:Push> OLD -->
+					
+					<s:Push Id="dess" Value="$GetCommNew($curTsk.Id)"></s:Push>
 															
 					<s:Iterator Id="des" Value="$dess">
 						<c:HorizontalLine />						

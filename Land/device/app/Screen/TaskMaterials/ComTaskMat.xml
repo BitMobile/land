@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <c:Screen xmlns:c="BitMobile.Controls" xmlns:s="BitMobile.ValueStack" StyleSheet="ComTaskMat.css">
-	<s:Push Id="curComment" Value="$GetComment($param1)"></s:Push>
+	<s:Push Id="curComment" Value="$GetCommentNew($param1)"></s:Push>
 
 	<c:DockLayout>
 		<c:DockLayout CssClass="top_navigator">
@@ -17,16 +17,11 @@
 				<c:TextView Text="#back#" />
 			</c:DockLayout>
 			
-			<s:If Test="$curComment.Id != NULL">
-				<c:DockLayout CssClass="btn_right_footer" OnClickAction="$EditComment($commentMemo.Text, $curComment.Id)">
-					<c:TextView Text="#ready#" />
-				</c:DockLayout>	
-			</s:If>
-			<s:Else>
-				<c:DockLayout CssClass="btn_right_footer" OnClickAction="$GreateComment($commentMemo.Text, $param1)">
-					<c:TextView Text="#ready#" />
-				</c:DockLayout>
-			</s:Else>		
+			
+			<c:DockLayout CssClass="btn_right_footer" OnClickAction="$SaveComment($commentMemo.Text, $param1)">
+				<c:TextView Text="#ready#" />
+			</c:DockLayout>	
+				
 		</c:DockLayout>
 		
 		<c:HorizontalLine />

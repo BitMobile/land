@@ -73,7 +73,7 @@ function ForNextWorkflowNew() {
 	var q = new Query("SELECT _US.Id AS UsId, _US.Department AS Department, OrdType.Id AS OrderType, S.Ref AS Sklad " +
 			"FROM Catalog_User _US	" +
 			"LEFT JOIN Enum_OrderType OrdType ON OrdType.Name = @orderType " +
-			"LEFT JOIN Catalog_Sklad_Department S ON S.Depart = _US.Department " +
+			"INNER JOIN Catalog_Sklad_Department S ON S.Depart = _US.Department " +
 			"WHERE _US.Id = @UserId");
 	
 	q.AddParameter("orderType", orderType);
