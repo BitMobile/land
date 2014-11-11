@@ -1,0 +1,14 @@
+Bitmobile.device_address=192.168.0.161
+Bitmobile.device_debug_port=8082
+Bitmobile.device_deploy_script=C\:\\inetpub\\wwwroot\\bitmobile\\Utils\\utils.exe -dr -host %HOST% -sp 1234567890Qq -sn UPOLand %PATH%\r\nC\:\\inetpub\\wwwroot\\bitmobile\\Utils\\utils.exe -ar -host %HOST% -sp 1234567890Qq -sn UPOLand
+Bitmobile.device_port=
+Bitmobile.device_starter_port=8082
+Bitmobile.server_password=1234567890Qq
+<<<<<<< HEAD
+Bitmobile.server_url=http\://localhost/bitmobile
+=======
+Bitmobile.server_url=http\://192.168.0.170/bitmobile
+>>>>>>> hotFix
+Bitmobile.solution_name=UPOLand
+Bitmobile.util_path=C\:\\inetpub\\wwwroot\\bitmobile\\Utils\\Utils.exe
+eclipse.preferences.version=1
