@@ -254,7 +254,7 @@ function StatusDoSelect(entity) {
     		"INNER JOIN Catalog_Sklad_Department SKLADDep ON SKLADDep.Depart = _DEP.Id " +
     		"INNER JOIN Catalog_Sklad SKLAD ON SKLAD.Id = SKLADDep.Ref " +
     		"INNER JOIN Catalog_User _US ON _US.Department = _DEP.Id " +
-    		"WHERE _DEP.Id not in (SELECT Department FROM Catalog_User WHERE Id = @userId)";
+    		"WHERE _DEP.Id not in (SELECT Department FROM Catalog_User WHERE Id = @userId) ORDER BY SKLAD.Description ";
     
     query.AddParameter("userId", "@ref[Catalog_User]:" + userId);
     

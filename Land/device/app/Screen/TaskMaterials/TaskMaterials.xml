@@ -225,7 +225,7 @@
 						</c:HorizontalLayout>					
 	
 					</s:Iterator>
-				</s:Else>
+				<!-- </s:Else> -->
 				
 				<c:HorizontalLayout CssClass="caption_grid">
 			        <c:TextView Text="#photo#:"></c:TextView>

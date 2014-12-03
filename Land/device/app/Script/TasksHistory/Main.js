@@ -302,9 +302,9 @@ function GetPhoto(currentObject, getCount){
 //СКРИН ИТОГИ
 
 function GetTaskResume(curTskId){
-	var qry = new Query("SELECT TSK.Id, TSK.TimeStart, TSK.TimeFinish, TSK.TimeSpent, TSK.TimeReactionNorm, TSKC.Id AS TSKCId, TSKC.Comment, AVR.ValueBrigade AS ValueBrigade " +
+	var qry = new Query("SELECT TSK.Id, TSK.TimeStart, TSK.TimeFinish, TSK.TimeSpent, TSK.TimeReactionNorm, TSK.Comment, AVR.ValueBrigade AS ValueBrigade " +
 			"FROM Document_Task TSK " +
-			"LEFT JOIN Document_Task_Comment TSKC ON TSKC.Ref = TSK.Id " +
+			//"LEFT JOIN Document_Task_Comment TSKC ON TSKC.Ref = TSK.Id " +
 			"LEFT JOIN Document_bitmobile_AVR AVR ON AVR.Task = TSK.Id " +
 			"WHERE TSK.Id = @curTskId");
 	qry.AddParameter("curTskId", curTskId);
@@ -350,7 +350,7 @@ function RewiewComment(comment){
 //СКРИН С ОПИСАНИЕМ
 
 function GetComment(curTskId){
-	var qry = new Query("SELECT CM.Id, CM.Comment FROM Document_Task_Comment CM WHERE Ref = @curTask");
+	var qry = new Query("SELECT CM.Id, CM.Comment FROM Document_Task CM WHERE CM.Id = @curTask");
 	qry.AddParameter("curTask", curTskId);
 	var c = qry.Execute();
 	return c; 

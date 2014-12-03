@@ -5,9 +5,16 @@ var peremPlanTask;		//плановые заявки
 var peremCrashTask;		//аварийные заявки
 var peremInMovingMain;	//входящие перемещения
 var peremOutMovingMain;	//исходящие перемещения
+var peremMotivation;	//исходящие перемещения
 
 function OnLoading() {    
-		
+	
+	if($.Exists("peremMotivation") == false){
+		$.AddGlobal("peremMotivation", null);
+	}else{
+		peremMotivation = $.peremMotivation; 	//мотивация
+	}
+	
 	if($.Exists("peremNewsCount") == false){
 		$.AddGlobal("peremNewsCount", null);
 	}else{
@@ -92,6 +99,44 @@ function Fake() {
 
 
 //ДЛЯ ЧАСТИ ЭКРАНА МЕНЮ
+
+function Motivation(){
+	if(peremMotivation == null){
+		var userId = $.common.UserId;
+		
+		var qry = new Query("SELECT M.SettlemenType AS SettlemenType, SUM(M.Motivation) AS Motiv " +
+							"FROM Catalog_ObjectContactName_Motivation M " +
+							"	LEFT JOIN Catalog_User US ON US.ObjectContactName = M.Ref " +
+							"WHERE US.Id = @userId AND M.PeriodReg = datetime('now','localtime','start of month')" +
+							"GROUP BY M.SettlemenType");
+		
+		qry.AddParameter("userId", "@ref[Catalog_User]:" + userId);
+		
+		var qq = qry.Execute();
+		
+		var strMotiv = "";
+		
+		while (qq.Next()){
+			if(qq.Motiv == 0){
+				continue;
+			}else{
+				var st = qq.SettlemenType;
+				var mt = qq.Motiv;
+				//Dialog.Debug(st);				
+				st = Mid(st, 1, 1);
+				
+				strMotiv = strMotiv + " " + st  + ":" + mt + "р";
+			}					
+		}
+		
+		peremMotivation = strMotiv;
+		
+		$.Remove("peremMotivation");
+		$.Add("peremMotivation", peremMotivation);
+	}
+	
+	return peremMotivation;
+}
 
 function NewsCount() {
 	

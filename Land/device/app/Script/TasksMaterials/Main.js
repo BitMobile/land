@@ -510,13 +510,17 @@ function SaveComment(comment, curTaskId) {
 }
 
 function RewiewComment(comment){
-	var commentCount = StrLen(comment);
-	if(commentCount >=78){
-		var comment = Mid(comment, 1, 77);
-		return comment;
+	if(comment != null){ 
+		var commentCount = StrLen(comment);
+		if(commentCount >=78){
+			var comment = Mid(comment, 1, 77);
+			return comment;
+		}else{
+			return 0;
+		}	
 	}else{
 		return 0;
-	}	
+	}
 }
 
 

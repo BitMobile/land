@@ -10,6 +10,10 @@
     
     <s:Push Id="outMoving" Value="$OutMovingMain()"></s:Push>
     <s:Push Id="inMoving" Value="$InMovingMain()"></s:Push>
+    
+    <s:Push Id="inMoving" Value="$InMovingMain()"></s:Push>
+    
+    <s:Push Id="motivation" Value="$Motivation()"></s:Push>
 
   <c:SwipeHorizontalLayout Id="swipe_layout" Index="0">
     <c:VerticalLayout CssClass="menu">
@@ -165,8 +169,8 @@
         <c:DockLayout>
           <c:DockLayout CssClass="grid">
             <c:VerticalLayout>
-              <c:TextView Text="" CssClass="main_row"></c:TextView>
-              <c:TextView Text="" CssClass="description_row"/>
+              <c:TextView Text="В этом месяце" CssClass="main_row"></c:TextView>
+              <c:TextView Text="$motivation" CssClass="description_row"/>
             </c:VerticalLayout>
           </c:DockLayout>
           <c:HorizontalLine/>
