@@ -193,7 +193,7 @@
 			        <c:TextView Text="#descriptions#:"></c:TextView>
 			    </c:HorizontalLayout>
 			    
-			    <!-- <s:Push Id="dessCount" Value="$GetComm($curTsk.Id, 1)"></s:Push>   
+			    <!-- <s:Push Id="dessCount" Value="$GetComm($curTsk.Id, 1)"></s:Push>  
 			    								
 				<s:If Test="$dessCount == 0">
 				
