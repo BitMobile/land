@@ -5,7 +5,7 @@ var peremPlanTask;		//плановые заявки
 var peremCrashTask;		//аварийные заявки
 var peremInMovingMain;	//входящие перемещения
 var peremOutMovingMain;	//исходящие перемещения
-var peremMotivation;	//исходящие перемещения
+var peremMotivation;	//мотивация
 
 function OnLoading() {    
 	

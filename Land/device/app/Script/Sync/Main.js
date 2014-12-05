@@ -23,7 +23,7 @@ function SyncDataFinish() {
     Variables.AddGlobal("lastDataSync", DateTime.Now.ToString("dd MMM yyyy HH:mm"));
     $.dataSyncReport.Text = $.lastDataSync;
     
-    
+    //var peremMotivation;	//мотивация
     //var peremNewsCount; 	//новости
 	//var peremDoneTask;		//выполненные заявки
 	//var peremNewTask;		//новые заявки
@@ -32,7 +32,10 @@ function SyncDataFinish() {
 	//var peremInMovingMain;	//входящие перемещения
 	//var peremOutMovingMain;	//исходящие перемещения
 	
-	$.Remove("peremNewsCount");
+    $.Remove("peremMotivation");
+	$.Add("peremMotivation", peremMotivation);
+    
+    $.Remove("peremNewsCount");
 	$.AddGlobal("peremNewsCount", null);
 	
 	$.Remove("peremDoneTask");

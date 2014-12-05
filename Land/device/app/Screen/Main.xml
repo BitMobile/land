@@ -169,7 +169,7 @@
         <c:DockLayout>
           <c:DockLayout CssClass="grid">
             <c:VerticalLayout>
-              <c:TextView Text="В этом месяце" CssClass="main_row"></c:TextView>
+              <c:TextView Text="Мотивация" CssClass="main_row"></c:TextView>
               <c:TextView Text="$motivation" CssClass="description_row"/>
             </c:VerticalLayout>
           </c:DockLayout>
