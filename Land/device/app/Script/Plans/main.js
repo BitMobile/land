@@ -322,7 +322,7 @@ function GetAVR(aVRId){
 	var qry = new Query("SELECT AVR.Id, AVR.Number, AVR.Date, PROBL.ProblemDescription, TSKCOM.Comment " +
 			"FROM Document_AVR AVR " +
 			"LEFT JOIN Document_Task_Problem PROBL ON AVR.Task = PROBL.Ref " +
-			"LEFT JOIN Document_Task_Comment TSKCOM ON AVR.Task = TSKCOM.Ref " +
+			"LEFT JOIN Document_Task TSKCOM ON AVR.Task = TSKCOM.Id " +
 			"WHERE AVR.Id == @P");
 	qry.AddParameter("P", aVRId);
 	return qry.Execute(); 

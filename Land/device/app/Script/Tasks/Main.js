@@ -1114,7 +1114,8 @@ function GetTripWayPointsObj(currentObject){
 //СКРИН "СПИСОК АВР"
 
 function GetAVRs(currentObject,getCount){
-	var qry = new Query("SELECT AVR.Id, AVR.Number, AVR.Date, PROBL.ProblemDescription FROM Document_AVR AVR LEFT JOIN Document_Task_Problem PROBL ON AVR.Task = PROBL.Ref WHERE AVR.Object == @P");
+	var qry = new Query("SELECT AVR.Id, AVR.Number, AVR.Date, PROBL.ProblemDescription FROM Document_AVR AVR " +
+			"LEFT JOIN Document_Task_Problem PROBL ON AVR.Task = PROBL.Ref WHERE AVR.Object == @P");
 	qry.AddParameter("P",currentObject);
 	if (getCount == 0) {
 		return qry.Execute(); 
@@ -1126,10 +1127,10 @@ function GetAVRs(currentObject,getCount){
 //СКРИН "АВР"
 
 function GetAVR(aVRId){
-	var qry = new Query("SELECT AVR.Id, AVR.Number, AVR.Date, PROBL.ProblemDescription, TSKCOM.Comment " +
+	var qry = new Query("SELECT AVR.Id, AVR.Number, AVR.Date, PROBL.ProblemDescription, TSK.Comment " +
 			"FROM Document_AVR AVR " +
 			"LEFT JOIN Document_Task_Problem PROBL ON AVR.Task = PROBL.Ref " +
-			"LEFT JOIN Document_Task_Comment TSKCOM ON AVR.Task = TSKCOM.Ref " +
+			"LEFT JOIN Document_Task TSK ON AVR.Task = TSK.Id " +
 			"WHERE AVR.Id == @P");
 	qry.AddParameter("P", aVRId);
 	return qry.Execute(); 
