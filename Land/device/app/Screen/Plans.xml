@@ -2,6 +2,8 @@
 <c:Screen xmlns:c="BitMobile.Controls" xmlns:s="BitMobile.ValueStack"
 	StyleSheet="Plans.css">
 
+	<s:Push Id="nullDate" Value="0001-01-01 00:00:00"></s:Push>
+	
 	<c:VerticalLayout>
 
 		<c:DockLayout CssClass="top_navigator">

@@ -40,8 +40,10 @@ function GetObjectListCount(currentPlan)
 }
 
 function GetCount_DatePlanNotNull(currentPlan){
-	var qry = new Query("SELECT ID FROM Document_Plan_ObjectList WHERE Document_Plan_ObjectList.Ref == @P AND Document_Plan_ObjectList.DatePlan IS NOT NULL");
+	var qry = new Query("SELECT ID FROM Document_Plan_ObjectList WHERE Document_Plan_ObjectList.Ref == @P AND Document_Plan_ObjectList.DatePlan IS NOT NULL and not Document_Plan_ObjectList.DatePlan = @nullDate");
 	qry.AddParameter("P",currentPlan);
+	//SELECT ID FROM Document_Plan_ObjectList WHERE Document_Plan_ObjectList.Ref == @P AND Document_Plan_ObjectList.DatePlan IS NOT NULL
+	qry.AddParameter("nullDate","0001-01-01 00:00:00");
 	return qry.ExecuteCount();
 }
 
@@ -160,9 +162,11 @@ function SetDatePlanNow(key, arr) {
 
 function KillDatePlan(vizitId, currentPlan, planPeriod){
 	$.datePlan.Text = null;
+	//$.datePlan.Text = "0001-01-01 00:00:00";
 	//Dialog.Debug(vizitId);
 	var obj = vizitId.GetObject();
 	obj.DatePlan = null;
+	//obj.DatePlan = "0001-01-01 00:00:00";
 	obj.Save(false);
 	Workflow.Refresh([currentPlan, planPeriod]);
 }
