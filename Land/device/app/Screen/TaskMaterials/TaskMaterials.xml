@@ -1,17 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <c:Screen xmlns:c="BitMobile.Controls" xmlns:s="BitMobile.ValueStack" StyleSheet="TaskMaterials.css">
 	
+	<s:Push Id="newTskMat" Value="$GlobalNewTskMatPC()"></s:Push>
 	<s:Push Id="curTsk" Value="$GetCurrentTask($curTaskMat)"></s:Push>
 	<s:Push Id="DeleteGlobalPerem" Value=""></s:Push>
-	
+			
 	<s:Push Id="DeleteGlobalPerem2" Value=""></s:Push>
 			
 	<c:DockLayout>	
 		<c:DockLayout CssClass="top_navigator">
-			<c:HorizontalLayout CssClass="btn_back" OnEvent="Back" OnClickAction="$Workflow.DoRollback()">
-				<c:Image />
-				<c:TextView Text="#back#" />
-			</c:HorizontalLayout>
+			<s:If Test="$newTskMat == 0">
+				<c:HorizontalLayout CssClass="btn_back" OnEvent="Back" OnClickAction="$Workflow.DoRollback()">
+					<c:Image />
+					<c:TextView Text="#back#" />
+				</c:HorizontalLayout>
+			</s:If>
+			<s:Else>
+				<c:HorizontalLayout CssClass="btn_back" OnEvent="Back" OnClickAction="$DelPhotoTablAndDoRollback($curTsk.id)">
+					<c:Image />
+					<c:TextView Text="#back#" />
+				</c:HorizontalLayout>
+			</s:Else>
+			<!-- <c:HorizontalLayout CssClass="btn_back" OnEvent="Back" OnClickAction="$Workflow.DoRollback()">  -->
+			
+				
 			<c:Button Id="btnForward" Text="#ready#" CssClass="btn_forward" OnClickAction="$Workflow.DoCommit()" />
 			<c:HorizontalLayout>
 				<c:TextView Text="#application#" />

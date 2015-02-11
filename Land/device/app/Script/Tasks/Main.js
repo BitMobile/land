@@ -1,5 +1,6 @@
 var taskForSO;
 var statusIdGlob;
+var newTskMatCP
 
 //СКРИН "Tasks"
 
@@ -437,6 +438,9 @@ function ForNextWorkflowNew(curTask) {
 		$.AddGlobal("curTaskMat", curTaskMatLoc);
 		$.Remove("tasksType");
 		$.AddGlobal("tasksType", "ExpectedTask");
+		
+		$.Remove("newTskMatPC");
+		$.AddGlobal("newTskMatPC", 1);
 				
 		Workflow.Action("GoTaskMaterials", []);
 	}
@@ -448,6 +452,9 @@ function ForNextWorkflow(curTaskMatLoc, tasksTypeLoc) {
 	$.AddGlobal("curTaskMat", curTaskMatLoc);
 	$.Remove("tasksType");
 	$.AddGlobal("tasksType", tasksTypeLoc);
+	
+	$.Remove("newTskMatPC");
+	$.AddGlobal("newTskMatPC", 0);
 	
 	Workflow.Action("GoTaskMaterials", []);
 }

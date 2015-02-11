@@ -274,6 +274,29 @@ function GetTskPhoto(currentObject, getCount){
 	}
 }
 
+function GlobalNewTskMatPC(){
+	if($.Exists("newTskMatPC") == false){
+	  $.AddGlobal("newTskMatPC", "1");
+	}else{
+	  return $.newTskMatPC;
+	}
+}
+
+function DelPhotoTablAndDoRollback(currentObject){
+	
+	DoRollback();
+		
+	var qry = new Query("SELECT Id FROM Document_InternalOrder_Photo WHERE Ref = @currentObject");		
+	qry.AddParameter("currentObject", currentObject);
+	var c = qry.Execute();
+	
+	while (c.Next()){
+		DB.Delete(c.Id);
+	}		
+		
+}
+
+
 function KillPhoto(photoId){
 	
 	DB.Delete(photoId);
