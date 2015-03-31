@@ -17,11 +17,13 @@
 		
 		<c:HorizontalLine />
 				
-		<c:VerticalLayout CssClass="memo_block_90sp">
-			<c:VerticalLayout>
-				<c:TextView Id="commentMemo" Text="$curComment" CssClass="main_row"></c:TextView>
-			</c:VerticalLayout>
-		</c:VerticalLayout>		
+		<c:ScrollView Id="scrlVw">
+			<c:VerticalLayout CssClass="memo_block_90sp">
+				<c:VerticalLayout>
+					<c:TextView Id="commentMemo" Text="$curComment" CssClass="main_row"></c:TextView>
+				</c:VerticalLayout>
+			</c:VerticalLayout>	
+		</c:ScrollView>	
 				
 	</c:DockLayout>
 
