@@ -89,21 +89,11 @@ function LocationDialogHandler(answ, TskMatId){
 //				//"LEFT JOIN Catalog_UnitCat UnitCat ON _LIM.Ref = UnitCat.Ref " +
 //				"WHERE (_LIM.Count - _STOC.Count) > 0");
 		
-		var qry = new Query("SELECT _LIM.Ref, (IfNull(_LIM.Count, 0) - (IFNULL(S.Count, 0) - (IFNULL(GCount, 0) + IFNULL(MATCount, 0)))) AS UpTo " +
+		var qry = new Query("SELECT _LIM.Ref, (IfNull(_LIM.Count, 0) - (IFNULL(S.Count, 0))) AS UpTo " +
 				"FROM Catalog_SKU_Limits _LIM " +
 				"LEFT JOIN Catalog_SKU_Stocks S ON S.Ref = _LIM.Ref " +
-				"LEFT JOIN (SELECT GDS.SKU, SUM(GDS.Count) AS GCount FROM Document_Moving M	" +
-				"			INNER JOIN Enum_MovingStatus S ON S.Id = M.Status " +
-				"			INNER JOIN Document_Moving_Goods GDS ON GDS.Ref = M.Id " +
-				"			WHERE (S.Name = @sName OR S.Name = @ssName) " +
-				"			GROUP BY GDS.SKU) M	ON M.SKU = _LIM.Ref " +
-				"LEFT JOIN (SELECT MAT.SKU, SUM(MAT.Count) AS MATCount FROM Document_bitmobile_AVR AVR " +
-				"			INNER JOIN Document_bitmobile_AVR_Materials MAT ON MAT.Ref = AVR.Id " +
-				"			LEFT JOIN Document_AVR AVRT ON AVRT.Task = AVR.Task " +
-				"			LEFT JOIN Document_AVR_SKU AVRTM ON AVRTM.Ref = AVRT.Id AND AVRTM.SKU = MAT.SKU	" +
-				"			WHERE AVRTM.DocumentsWritten = 0 OR AVRTM.DocumentsWritten IS NULL " +
-				"			GROUP BY MAT.SKU) AVR ON AVR.SKU = _LIM.Ref " +
-				"WHERE (IfNull(_LIM.Count, 0) - (IFNULL(S.Count, 0) - (IFNULL(GCount, 0) + IFNULL(MATCount, 0)))) > 0");
+				
+				"WHERE (IfNull(_LIM.Count, 0) - (IFNULL(S.Count, 0))) > 0");
 		
 		
 		qry.AddParameter("sName", "�����");
@@ -313,24 +303,11 @@ function KillPhoto(photoId){
 function GetsKUsAll(curTskId, searchText){
 	if (searchText != "" && searchText != null) {
 					
-		var qry = new Query("SELECT SKU.Id, SKU.Description, (IFNULL(STOK.Count, 0) - IFNULL(GCount, 0) - IFNULL(MATCount, 0)) AS MyCount, UN.Description AS Unit, UN.Id AS UnId " +
+		var qry = new Query("SELECT SKU.Id, SKU.Description, (IFNULL(STOK.Count, 0)) AS MyCount, UN.Description AS Unit, UN.Id AS UnId " +
 				"FROM Catalog_SKU SKU " +
 				"LEFT JOIN Catalog_SKU_Stocks STOK ON SKU.Id = STOK.Ref " +
 				"LEFT JOIN Catalog_Unit UN ON SKU.Unit = UN.Id " +
-				
-				"LEFT JOIN (SELECT GDS.SKU, SUM(GDS.Count) AS GCount FROM Document_Moving M	" +
-				"			INNER JOIN Enum_MovingStatus S ON S.Id = M.Status " +
-				"			INNER JOIN Document_Moving_Goods GDS ON GDS.Ref = M.Id " +
-				"			WHERE (S.Name = @sName OR S.Name = @ssName) " +
-				"			GROUP BY GDS.SKU) M	ON M.SKU = STOK.Ref " +
-				
-				"LEFT JOIN (SELECT MAT.SKU, SUM(MAT.Count) AS MATCount FROM Document_bitmobile_AVR AVR " +
-				"			INNER JOIN Document_bitmobile_AVR_Materials MAT ON MAT.Ref = AVR.Id " +
-				"			LEFT JOIN Document_AVR AVRT ON AVRT.Task = AVR.Task " +
-				"			LEFT JOIN Document_AVR_SKU AVRTM ON AVRTM.Ref = AVRT.Id AND AVRTM.SKU = MAT.SKU	" +
-				"			WHERE AVRTM.DocumentsWritten = 0 OR AVRTM.DocumentsWritten IS NULL " +
-				"			GROUP BY MAT.SKU) AVR ON AVR.SKU = STOK.Ref " +
-				
+								
 				"WHERE SKU.Service = @service AND Contains(SKU.Description, @st) ORDER BY SKU.Description");
 		qry.AddParameter("curTask", curTskId);
 		qry.AddParameter("st", searchText);
@@ -342,23 +319,11 @@ function GetsKUsAll(curTskId, searchText){
 	
 	}else{
 		
-		var qry = new Query("SELECT SKU.Id, SKU.Description, (IFNULL(STOK.Count, 0) - IFNULL(GCount, 0) - IFNULL(MATCount, 0)) AS MyCount, UN.Description AS Unit, UN.Id AS UnId " +
+		var qry = new Query("SELECT SKU.Id, SKU.Description, (IFNULL(STOK.Count, 0)) AS MyCount, UN.Description AS Unit, UN.Id AS UnId " +
 				"FROM Catalog_SKU SKU " +
 				"LEFT JOIN Catalog_SKU_Stocks STOK ON SKU.Id = STOK.Ref " +
 				"LEFT JOIN Catalog_Unit UN ON SKU.Unit = UN.Id " +
-				
-				"LEFT JOIN (SELECT GDS.SKU, SUM(GDS.Count) AS GCount FROM Document_Moving M	" +
-				"			INNER JOIN Enum_MovingStatus S ON S.Id = M.Status " +
-				"			INNER JOIN Document_Moving_Goods GDS ON GDS.Ref = M.Id " +
-				"			WHERE (S.Name = @sName OR S.Name = @ssName) " +
-				"			GROUP BY GDS.SKU) M	ON M.SKU = STOK.Ref " +
-				
-				"LEFT JOIN (SELECT MAT.SKU, SUM(MAT.Count) AS MATCount FROM Document_bitmobile_AVR AVR " +
-				"			INNER JOIN Document_bitmobile_AVR_Materials MAT ON MAT.Ref = AVR.Id " +
-				"			LEFT JOIN Document_AVR AVRT ON AVRT.Task = AVR.Task " +
-				"			LEFT JOIN Document_AVR_SKU AVRTM ON AVRTM.Ref = AVRT.Id AND AVRTM.SKU = MAT.SKU	" +
-				"			WHERE AVRTM.DocumentsWritten = 0 OR AVRTM.DocumentsWritten IS NULL " +
-				"			GROUP BY MAT.SKU) AVR ON AVR.SKU = STOK.Ref " +
+								
 				"WHERE SKU.Service = @service ");
 		qry.AddParameter("curTask", curTskId);
 		qry.AddParameter("service", "0");

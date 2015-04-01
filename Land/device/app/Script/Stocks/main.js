@@ -10,25 +10,13 @@ function GetStocks()
 {
 	var userId = $.common.UserId;
 	
-	var qry = new Query("SELECT STO.Id, STO.Ref, _UN.Description, (IFNULL(STO.Count, 0) - IFNULL(GCount, 0) - IFNULL(MATCount, 0))	AS MyCount, IFNULL(STO.Count, 0) AS Stock, (IfNull(_LIM.Count, 0)) AS Lim " +
+	var qry = new Query("SELECT STO.Id, STO.Ref, _UN.Description, (IFNULL(STO.Count, 0))	AS MyCount, IFNULL(STO.Count, 0) AS Stock, (IfNull(_LIM.Count, 0)) AS Lim " +
 			"FROM Catalog_SKU_Stocks STO " +
 			"LEFT JOIN Catalog_SKU SKU ON SKU.Id = STO.Ref " +
 			"LEFT JOIN Catalog_Unit _UN ON SKU.Unit = _UN.Id " +
 			"LEFT JOIN Catalog_SKU_Limits _LIM ON _LIM.Ref = SKU.Id " +
-			"LEFT JOIN (SELECT GDS.SKU, SUM(GDS.Count) AS GCount FROM Document_Moving M	" +
-			"			INNER JOIN Enum_MovingStatus S ON S.Id = M.Status " +
-			"			INNER JOIN Document_Moving_Goods GDS ON GDS.Ref = M.Id " +
-			"			WHERE (S.Name = @sName OR S.Name = @ssName) " +
-			"			GROUP BY GDS.SKU) M	ON M.SKU = STO.Ref " +
-			"LEFT JOIN (SELECT MAT.SKU, SUM(MAT.Count) AS MATCount FROM Document_bitmobile_AVR AVR " +
-			"			INNER JOIN Document_bitmobile_AVR_Materials MAT ON MAT.Ref = AVR.Id " +
-			"			LEFT JOIN Document_AVR AVRT ON AVRT.Task = AVR.Task " +
-			"			LEFT JOIN Document_AVR_SKU AVRTM ON AVRTM.Ref = AVRT.Id AND AVRTM.SKU = MAT.SKU " +
-			"			LEFT JOIN Catalog_Department D ON D.Id = AVRT.Department " +
-			"			LEFT JOIN Catalog_User U ON U.Department = D.Id " +
-			"			WHERE (AVRTM.DocumentsWritten = 0 OR AVRTM.DocumentsWritten IS NULL) AND U.Id = @userId " +
-			"			GROUP BY MAT.SKU) AVR ON AVR.SKU = STO.Ref " +
-			"WHERE ((IFNULL(STO.Count, 0) - IFNULL(GCount, 0) - IFNULL(MATCount, 0)) > 0 OR (IFNULL(STO.Count, 0) > 0 OR IfNull(_LIM.Count, 0) > 0)) AND SKU.Service = @service " +
+			
+			"WHERE ((IFNULL(STO.Count, 0) > 0 OR IfNull(_LIM.Count, 0) > 0)) AND SKU.Service = @service " +
 			"ORDER BY SKU.Description");			
 			
 //			"SELECT STO.ID, STO.Ref, UN.Description, STO.Count, (IfNull(_LIM.Count, 0)) AS Lim " +

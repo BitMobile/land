@@ -42,7 +42,7 @@
 					<c:VerticalLayout CssClass="no_mark"></c:VerticalLayout>
 					<c:VerticalLayout>
 					  <c:TextView Text="$stock.Ref.Description" CssClass="main_row"></c:TextView>
-					  <c:TextView Text="Факт: {$stock.MyCount}  Учет: {$stock.Stock}  Лимит: {$stock.Lim}  {$stock.Description}." CssClass="description_row"/>					  
+					  <c:TextView Text="Остаток: {$stock.Stock}  Лимит: {$stock.Lim}  {$stock.Description}." CssClass="description_row"/>					  
 					</c:VerticalLayout>
 				</c:HorizontalLayout>
 				

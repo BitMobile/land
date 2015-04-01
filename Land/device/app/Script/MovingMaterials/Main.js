@@ -347,24 +347,12 @@ function GetsKUsAll(curTskId, searchText){
 	
 	if (searchText != "" && searchText != null) {
 		
-		var qry = new Query("SELECT S.Id, SKU.Id AS SKU, SKU.Description, _UN.Description AS Unit, _UN.Id AS UnId, (IFNULL(S.Count, 0) - IFNULL(GCount, 0) - IFNULL(MATCount, 0))	AS MyCount " +
+		var qry = new Query("SELECT S.Id, SKU.Id AS SKU, SKU.Description, _UN.Description AS Unit, _UN.Id AS UnId, (IFNULL(S.Count, 0))	AS MyCount " +
 				"FROM Catalog_SKU_Stocks S " +
 				"LEFT JOIN Catalog_SKU SKU ON SKU.Id = S.Ref " +
 				"LEFT JOIN Catalog_Unit _UN ON SKU.Unit = _UN.Id " +
-				"LEFT JOIN (SELECT GDS.SKU, SUM(GDS.Count) AS GCount FROM Document_Moving M	" +
-				"			INNER JOIN Enum_MovingStatus S ON S.Id = M.Status " +
-				"			INNER JOIN Document_Moving_Goods GDS ON GDS.Ref = M.Id " +
-				"			WHERE (S.Name = @sName OR S.Name = @ssName) " +
-				"			GROUP BY GDS.SKU) M	ON M.SKU = S.Ref " +
-				"LEFT JOIN (SELECT MAT.SKU, SUM(MAT.Count) AS MATCount FROM Document_bitmobile_AVR AVR " +
-				"			INNER JOIN Document_bitmobile_AVR_Materials MAT ON MAT.Ref = AVR.Id " +
-				"			LEFT JOIN Document_AVR AVRT ON AVRT.Task = AVR.Task " +
-				"			LEFT JOIN Document_AVR_SKU AVRTM ON AVRTM.Ref = AVRT.Id AND AVRTM.SKU = MAT.SKU " +
-				"			LEFT JOIN Catalog_Department D ON D.Id = AVRT.Department " +
-				"			LEFT JOIN Catalog_User U ON U.Department = D.Id " +
-				"			WHERE (AVRTM.DocumentsWritten = 0 OR AVRTM.DocumentsWritten IS NULL) AND U.Id = @userId " +
-				"			GROUP BY MAT.SKU) AVR ON AVR.SKU = S.Ref " +
-				"WHERE (IFNULL(S.Count, 0) - IFNULL(GCount, 0) - IFNULL(MATCount, 0)) > 0 AND SKU.Service = @service AND Contains(SKU.Description, @st)	" +
+				
+				"WHERE (IFNULL(S.Count, 0)) > 0 AND SKU.Service = @service AND Contains(SKU.Description, @st)	" +
 				"ORDER BY SKU.Description");
 		qry.AddParameter("sName", "Новая");
 		qry.AddParameter("ssName", "Отправлена");
@@ -377,24 +365,12 @@ function GetsKUsAll(curTskId, searchText){
 		
 	}else{
 		
-		var qry = new Query("SELECT S.Id, SKU.Id AS SKU, SKU.Description, _UN.Description AS Unit, _UN.Id AS UnId, (IFNULL(S.Count, 0) - IFNULL(GCount, 0) - IFNULL(MATCount, 0))	AS MyCount " +
+		var qry = new Query("SELECT S.Id, SKU.Id AS SKU, SKU.Description, _UN.Description AS Unit, _UN.Id AS UnId, (IFNULL(S.Count, 0))	AS MyCount " +
 				"FROM Catalog_SKU_Stocks S " +
 				"LEFT JOIN Catalog_SKU SKU ON SKU.Id = S.Ref " +
 				"LEFT JOIN Catalog_Unit _UN ON SKU.Unit = _UN.Id " +
-				"LEFT JOIN (SELECT GDS.SKU, SUM(GDS.Count) AS GCount FROM Document_Moving M	" +
-				"			INNER JOIN Enum_MovingStatus S ON S.Id = M.Status " +
-				"			INNER JOIN Document_Moving_Goods GDS ON GDS.Ref = M.Id " +
-				"			WHERE (S.Name = @sName OR S.Name = @ssName) " +
-				"			GROUP BY GDS.SKU) M	ON M.SKU = S.Ref " +
-				"LEFT JOIN (SELECT MAT.SKU, SUM(MAT.Count) AS MATCount FROM Document_bitmobile_AVR AVR " +
-				"			INNER JOIN Document_bitmobile_AVR_Materials MAT ON MAT.Ref = AVR.Id " +
-				"			LEFT JOIN Document_AVR AVRT ON AVRT.Task = AVR.Task " +
-				"			LEFT JOIN Document_AVR_SKU AVRTM ON AVRTM.Ref = AVRT.Id AND AVRTM.SKU = MAT.SKU " +
-				"			LEFT JOIN Catalog_Department D ON D.Id = AVRT.Department " +
-				"			LEFT JOIN Catalog_User U ON U.Department = D.Id " +
-				"			WHERE (AVRTM.DocumentsWritten = 0 OR AVRTM.DocumentsWritten IS NULL) AND U.Id = @userId " +
-				"			GROUP BY MAT.SKU) AVR ON AVR.SKU = S.Ref " +
-				"WHERE (IFNULL(S.Count, 0) - IFNULL(GCount, 0) - IFNULL(MATCount, 0)) > 0 AND SKU.Service = @service " +
+				
+				"WHERE (IFNULL(S.Count, 0)) > 0 AND SKU.Service = @service " +
 				"ORDER BY SKU.Description");
 		qry.AddParameter("sName", "Новая");
 		qry.AddParameter("ssName", "Отправлена");
@@ -418,24 +394,12 @@ function AddSKU(sender, sKUId, sKUUnId, addCountText, curMovId, edtSearch) {
 	var userId = $.common.UserId;
 	
 	//контроль остатков 
-	var qry = new Query("SELECT (IFNULL(S.Count, 0) - IFNULL(GCount, 0) - IFNULL(MATCount, 0))	AS MyCount " +
+	var qry = new Query("SELECT (IFNULL(S.Count, 0))	AS MyCount " +
 					"FROM Catalog_SKU_Stocks S " +
 					"INNER JOIN Catalog_SKU SKU ON SKU.Id = S.Ref AND SKU.Id = @sKUId " +
 					"LEFT JOIN Catalog_Unit _UN ON SKU.Unit = _UN.Id " +
-					"LEFT JOIN (SELECT GDS.SKU, SUM(GDS.Count) AS GCount FROM Document_Moving M	" +
-					"			INNER JOIN Enum_MovingStatus S ON S.Id = M.Status " +
-					"			INNER JOIN Document_Moving_Goods GDS ON GDS.Ref = M.Id " +
-					"			WHERE (S.Name = @sName OR S.Name = @ssName) " +
-					"			GROUP BY GDS.SKU) M	ON M.SKU = S.Ref " +
-					"LEFT JOIN (SELECT MAT.SKU, SUM(MAT.Count) AS MATCount FROM Document_bitmobile_AVR AVR " +
-					"			INNER JOIN Document_bitmobile_AVR_Materials MAT ON MAT.Ref = AVR.Id " +
-					"			LEFT JOIN Document_AVR AVRT ON AVRT.Task = AVR.Task " +
-					"			LEFT JOIN Document_AVR_SKU AVRTM ON AVRTM.Ref = AVRT.Id AND AVRTM.SKU = MAT.SKU " +
-					"			LEFT JOIN Catalog_Department D ON D.Id = AVRT.Department " +
-					"			LEFT JOIN Catalog_User U ON U.Department = D.Id " +
-					"			WHERE (AVRTM.DocumentsWritten = 0 OR AVRTM.DocumentsWritten IS NULL) AND U.Id = @userId " +
-					"			GROUP BY MAT.SKU) AVR ON AVR.SKU = S.Ref " +
-					"WHERE (IFNULL(S.Count, 0) - IFNULL(GCount, 0) - IFNULL(MATCount, 0)) > 0");
+					
+					"WHERE (IFNULL(S.Count, 0)) > 0");
 	qry.AddParameter("sKUId", sKUId);
 	qry.AddParameter("sName", "Новая");
 	qry.AddParameter("ssName", "Отправлена");
