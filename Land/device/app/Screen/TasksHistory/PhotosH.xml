@@ -17,6 +17,17 @@
 		</c:DockLayout>
 		<c:HorizontalLine CssClass="navy"/>
 		
+		<c:DockLayout CssClass="footer">
+			<c:DockLayout CssClass="btn_left_footer" OnClickAction="$GetSKUShapshot($curTsk.Id, $taskStatus_AVRId.AVRId)">
+				<c:TextView Text="#photograph#" />
+			</c:DockLayout>																							
+		</c:DockLayout>
+		
+		<c:HorizontalLayout CssClass="swipe_info">
+			<c:Image CssClass="img_left"/>
+			<c:TextView Text="Смахните влево, чтобы     удалить фотографию" />				
+		</c:HorizontalLayout>
+		
 		<c:ScrollView Id="scrlVw">
 						
 			<c:HorizontalLayout CssClass="caption_grid">
@@ -47,7 +58,13 @@
 								<c:TextView Text="$photo.Info" CssClass="main_row"></c:TextView>															
 							</c:VerticalLayout>
 							<c:Image />
-						</c:HorizontalLayout>						
+						</c:HorizontalLayout>	
+						
+						<c:HorizontalLayout CssClass="red_swipe" OnClickAction="$KillPhoto($curTsk.Id, $photo.Id)">
+							<c:VerticalLayout>
+								<c:TextView Text="#del#"></c:TextView>
+							</c:VerticalLayout>
+						</c:HorizontalLayout>					
 						
 					</c:SwipeHorizontalLayout>
 

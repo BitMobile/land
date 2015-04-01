@@ -281,6 +281,44 @@ function GetJobs(currentObject, getCount){
 
 //СКРИН ФОТО
 
+function GetSKUShapshot(curTsk, aVRId) {
+	GetCameraObject(curTsk.Id, aVRId);
+	Camera.MakeSnapshot(SaveAtAVR, [curTsk, aVRId]);
+	
+}
+
+function GetCameraObject(curTskId, aVRId) {
+	FileSystem.CreateDirectory("/private/Document.bitmobile_AVR");
+	var guid = GenerateGuid();
+	Variables.Add("guid", guid);
+	var path = String.Format("/private/Document.bitmobile_AVR/{0}/{1}.jpg", aVRId.Id, guid);
+	Camera.Size = 800;
+	Camera.Path = path;
+}
+
+function GenerateGuid() {
+	return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+}
+
+function SaveAtAVR(arr, args) {
+	//Dialog.Debug(args.Result);
+	if (args.Result == true) {
+		var curTsk = arr[0];
+		var aVRId = arr[1];
+		tskObj = DB.Create("Document.bitmobile_AVR_Photo");
+		//Dialog.Debug(aVRId);
+		tskObj.Ref = aVRId;
+		var guid = Variables["guid"];
+		//Dialog.Debug(guid);
+		tskObj.Guid = guid;
+		tskObj.Path = String.Format("/private/Document.bitmobile_AVR/{0}/{1}.jpg", aVRId.Id, guid);
+		tskObj.Date = DateTime.Now; 
+		tskObj.Save(false);
+		//control.Text = Translate["#snapshotAttached#"];
+		Workflow.Refresh([curTsk]);
+	}
+}
+
 function GetPhoto(currentObject, getCount){
 	
 	if (getCount == 0) {	
@@ -294,6 +332,13 @@ function GetPhoto(currentObject, getCount){
 		var c = qry.ExecuteCount();	
 		return c;		
 	}
+}
+
+function KillPhoto(curTskId, photoId){
+	
+	DB.Delete(photoId);
+			
+	Workflow.Refresh([curTskId]);
 }
 
 
